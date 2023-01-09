@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Serialization;
 using Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,7 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(o =>
+{
+    o.SerializerSettings.ContractResolver = new DefaultContractResolver();
+});
 
 //For testing: builder.Services.AddScoped<IHeroService, IHeroService>();
 builder.Services.AddScoped<IHeroService, HeroService>();
