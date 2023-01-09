@@ -1,2 +1,2 @@
 # UnityGameServer
-Basic server using .NET for Unity games
+Basic server using .NET 6 for Unity games
