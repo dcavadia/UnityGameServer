@@ -9,10 +9,12 @@ namespace Server.Controllers
     public class HeroController : ControllerBase
     {
         private readonly IHeroService _heroService;
+        private readonly GameDbContext _context;
 
-        public HeroController(IHeroService heroService) {
-            _heroService = heroService;
-
+        public HeroController(IHeroService playerService, GameDbContext context)
+        {
+            _heroService = playerService;
+            _context = context;
         }
 
         [HttpGet]
