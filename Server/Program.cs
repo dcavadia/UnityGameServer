@@ -1,9 +1,14 @@
+using Server.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
 builder.Services.AddControllers();
+
+//For testing: builder.Services.AddScoped<IHeroService, IHeroService>();
+builder.Services.AddScoped<IHeroService, HeroService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

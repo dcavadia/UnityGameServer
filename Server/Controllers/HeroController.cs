@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Server.Services;
 using SharedLibrary;
 
 namespace Server.Controllers
@@ -7,10 +8,18 @@ namespace Server.Controllers
     [Route("[controller]")]
     public class HeroController : ControllerBase
     {
+        private readonly IHeroService _heroService;
+
+        public HeroController(IHeroService heroService) {
+            _heroService = heroService;
+
+        }
+
         [HttpGet]
-        public Hero Get()
+        public Hero Get([FromQuery]int id )
         {
-            var hero = new Hero();
+            _heroService.DoSomething();
+            var hero = new Hero() {Id=id};
             return hero;
         }
 
