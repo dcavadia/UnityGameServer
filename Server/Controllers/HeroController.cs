@@ -12,6 +12,13 @@ namespace Server.Controllers
         {
             var hero = new Hero();
             return hero;
-        }    
+        }
+
+        [HttpPost]
+        public Hero Post(Hero hero)
+        {
+            Console.WriteLine("Player has been added to the DB");
+            return hero;
+        }
     }
 }
