@@ -24,7 +24,7 @@ builder.Services.AddDbContext<GameDbContext>(o =>
 
 builder.Services.AddControllers().AddNewtonsoftJson(o =>
 {
-    //o.SerializerSettings.ContractResolver = new DefaultContractResolver();
+    o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 });
 
 //For testing: builder.Services.AddScoped<IHeroService, IHeroService>();
