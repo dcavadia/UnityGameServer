@@ -26,6 +26,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(o =>
 
 //For testing: builder.Services.AddScoped<IHeroService, IHeroService>();
 builder.Services.AddScoped<IHeroService, HeroService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
