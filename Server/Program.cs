@@ -8,7 +8,7 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddControllers().AddNewtonsoftJson(o =>
 {
-    o.SerializerSettings.ContractResolver = new DefaultContractResolver();
+    //o.SerializerSettings.ContractResolver = new DefaultContractResolver();
 });
 
 //For testing: builder.Services.AddScoped<IHeroService, IHeroService>();
