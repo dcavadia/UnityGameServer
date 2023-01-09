@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace SharedLibrary
+namespace SharedLibrary.Requests
 {
-    public class Hero
+    public class CreateHeroRequest
     {
         public int Id { get; set; }
         public int Level { get; set; }

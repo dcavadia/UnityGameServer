@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Server.Services;
 using SharedLibrary;
+using SharedLibrary.Requests;
 
 namespace Server.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class HeroController : ControllerBase
@@ -17,7 +21,7 @@ namespace Server.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public Hero Get([FromQuery]int id )
         {
             _heroService.DoSomething();
@@ -26,10 +30,26 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public Hero Post(Hero hero)
+        public Hero Post(CreateHeroRequest request)
         {
-            Console.WriteLine("Player has been added to the DB");
+            var userId = int.Parse(User.FindFirst("id").Value);
+
+            var user = _context.Users.Include(u => u.Heroes).First(u => u.Id == userId);
+
+            var hero = new Hero()
+            {
+                Name = request.Name,
+                User = user
+            };
+
+            _context.Add(hero);
+            _context.SaveChanges();
+
+            hero.User = null;
+
             return hero;
         }
+
+
     }
 }
