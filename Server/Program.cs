@@ -2,12 +2,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Serialization;
 using Server;
+using Server.Models;
 using Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+var settings = new Settings();
+builder.Configuration.Bind("Settings", settings);
+builder.Services.AddSingleton(settings);
+
 //Get string of connection from appsettings.json
 builder.Services.AddDbContext<GameDbContext>(o => 
     o.UseSqlServer(builder.Configuration.GetConnectionString("Db"))
