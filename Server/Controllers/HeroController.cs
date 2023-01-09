@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Server.Services;
 using SharedLibrary;
 using SharedLibrary.Requests;
@@ -50,6 +51,19 @@ namespace Server.Controllers
             return hero;
         }
 
+        [HttpPost("{id}")]
+        public IActionResult Edit([FromRoute] int id, [FromBody] CreateHeroRequest request)
+        {
+            var heroIdsAvailable = JsonConvert.DeserializeObject<List<int>>(User.FindFirst("heroes").Value);
 
+            if (!heroIdsAvailable.Contains(id)) return Unauthorized();
+
+            var hero = _context.Heroes.First(h => h.Id == id);
+
+            hero.Name = request.Name;
+            _context.SaveChanges();
+
+            return Ok();
+        }
     }
 }
